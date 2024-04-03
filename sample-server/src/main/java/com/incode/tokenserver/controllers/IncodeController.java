@@ -20,16 +20,16 @@ public class IncodeController {
 
     private final Logger log = LoggerFactory.getLogger(IncodeController.class);
 
-    @Value("${incode.apikey}")
+    @Value("${API_KEY}")
     private String apiKey;
 
-    @Value("${incode.apiurl}")
+    @Value("${API_URL}")
     private String apiUrl;
 
-    @Value("${incode.configurationId}")
+    @Value("${FLOW_ID}")
     private String configurationId;
 
-    @Value("${incode.clientId}")
+    @Value("${CLIENT_ID}")
     private String clientId;
 
     private final WebClient webClient;
