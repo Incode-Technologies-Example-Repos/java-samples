@@ -111,7 +111,7 @@ public class IncodeController {
 
     @GetMapping("/fetch-score")
     public Mono<Map<String, Object>> getFetchScoreFromASession(@RequestParam String interviewId,
-                                                               @RequestHeader("X-Incode-Hardware-Id") String token) {
+                                                               @RequestHeader("X-Token") String token) {
 
         return getScoreOfSession(interviewId, token)
                 .map(fetchScoreResponse -> {
