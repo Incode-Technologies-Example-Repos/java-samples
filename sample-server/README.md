@@ -67,7 +67,7 @@ Now you should be able to visit the following routes to receive the associated p
 1. `https://yourforwardingurl.app/start`
 2. `https://yourforwardingurl.app/onboarding-url`
 3. `https://yourforwardingurl.app/onboarding-url?redirectionUrl=https%3A%2F%2Fexample.com%2F`
-4. `https://yourforwardingurl.app/fetch-score??interviewId=660ee696a9b89db96502d8db`
+4. `https://yourforwardingurl.app/fetch-score?interviewId=660ee696a9b89db96502d8db`
 
 ## Webhook
 We provide an example on how to read the data we send in the webhook calls, from here you could
