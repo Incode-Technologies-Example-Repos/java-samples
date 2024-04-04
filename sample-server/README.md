@@ -8,6 +8,8 @@
 
 - GET `/onboarding-url`: Calls incodes `/omni/start` and then with the token calls `/0/omni/onboarding-url` to retrieve the unique onboarding-url for the newly created session.
 
+- GET `/fetch-score` : Calls incodes `/omni/get/score` to retrieve the overall score of a finished onboarding session. Requires a valid interviewId as request param and the session token as request header.
+
 It can receive the optional query parameter `redirectUrl` to set where to redirect the user at the end of the flow.
 
 - POST `/webhook`: Example webhook that reads the json data and return it back a response, from here you could fetch scores or OCR data when the status is ONBOARDING_FINISHED
@@ -44,7 +46,11 @@ Then start the local server with
 gradle bootRun
 ```
 
-The server will accept petitions on `http://localhost:3000/`
+Or run it directly through tour preferred IDE
+
+The server will accept petitions on `http://localhost:3000/`.
+
+You can change the server port on the `application.properties` file but remember which port your frontend is accessing
 
 ### Expose the server to the internet for frontend testing with ngrok
 For your frontend to properly work in tandem with this server on your mobile phone for testing, you will need a public url with proper SSL configured, by far the easiest way to acchieve this with an ngrok account properly configured on your computer. You can visit `https://ngrok.com` to make a free account and do a quick setup.
@@ -61,6 +67,7 @@ Now you should be able to visit the following routes to receive the associated p
 1. `https://yourforwardingurl.app/start`
 2. `https://yourforwardingurl.app/onboarding-url`
 3. `https://yourforwardingurl.app/onboarding-url?redirectionUrl=https%3A%2F%2Fexample.com%2F`
+4. `https://yourforwardingurl.app/fetch-score??interviewId=660ee696a9b89db96502d8db`
 
 ## Webhook
 We provide an example on how to read the data we send in the webhook calls, from here you could
