@@ -1,5 +1,4 @@
-incode.apikey=yourapikey
-incode.apiurl=yourapiurl
-incode.configurationId=yourconfigurationid
-incode.clientId=yourclientId
-
+API_URL=yourapiurl
+API_KEY=yourapikey
+CLIENT_ID=yourclientId
+FLOW_ID=yourflowid
