@@ -68,6 +68,19 @@ public class IncodeController {
                 .bodyToMono(FetchOnboardingUrlResponse.class);
     }
 
+    public Mono<FetchScoreResponse> getScoreOfSession(String interviewId, String token) {
+        String url = apiUrl + "/omni/get/score?interviewId=" + interviewId;
+        log.info("Calling {}", url);
+
+        return webClient.get()
+                .uri(url)
+                .header("X-Incode-Hardware-Id", token)
+                .header("x-api-key", apiKey)
+                .header("api-version", "1.0")
+                .retrieve()
+                .bodyToMono(FetchScoreResponse.class);
+    }
+
     @GetMapping("/start")
     public Mono<Map<String, String>> createSession() {
         return createIncodeSession().map( omniStartResponse -> {
@@ -94,6 +107,20 @@ public class IncodeController {
                         return response;
                     })
             );
+    }
+
+    @GetMapping("/fetch-score")
+    public Mono<Map<String, Object>> getFetchScoreFromASession(@RequestParam String interviewId,
+                                                               @RequestHeader("X-Incode-Hardware-Id") String token) {
+
+        return getScoreOfSession(interviewId, token)
+                .map(fetchScoreResponse -> {
+                    Map<String, Object> response = Map.of(
+                            "score", fetchScoreResponse.overall().status(),
+                            "success", true
+                    );
+                    return response;
+                });
     }
 
     @PostMapping("/webhook")
