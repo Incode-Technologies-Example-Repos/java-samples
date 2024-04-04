@@ -80,15 +80,16 @@ public class IncodeController {
     }
 
     @GetMapping("/onboarding-url")
-    public Mono<Map<String, String>> createSessionWithRedirectUrl() {
+    public Mono<Map<String, Object>> createSessionWithRedirectUrl() {
         return createIncodeSession()
             .flatMap(omniStartResponse ->
                 getOnboardingUrl(omniStartResponse.token())
                     .map(onboardingUrlResponse -> {
-                        Map<String, String> response = Map.of(
+                        Map<String, Object> response = Map.of(
                                 "interviewId", omniStartResponse.interviewId(),
                                 "token", omniStartResponse.token(),
-                                "url", onboardingUrlResponse.url()
+                                "url", onboardingUrlResponse.url(),
+                                "success", true
                         );
                         return response;
                     })
