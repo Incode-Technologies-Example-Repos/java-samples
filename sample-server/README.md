@@ -18,29 +18,30 @@ We highly recommend to follow the 0 rule for your implementations, where all sen
 Within this sample you will find the only call to a `/omni/` endpoint we recommend for you to have, it requires the usage of the `apikey`, all further calls must be done using only the generated `token` and be addresed to the `/0/omni` endpoints. 
 
 ## Prerequisites
-This sample requires [Python 3](https://www.python.org/downloads/) or superior with pip installed
+This sample requires [JAVA 17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html) with gradle installed
 
 ## Local Development
 
 ### Environment
-Rename `sample.env` file to `.env` and add your client details:
+Rename `application.properties.example` file to `application.properties` and add your api url, api key, clientId, and flowId details:
 
-```env
+```application.properties
 API_URL=https://demo-api.incodesmile.com
-API_KEY=you-api-key
-CLIENT_ID=your-client-id
-FLOW_ID=Flow Id from your Incode dashboard.
+API_KEY=yourapikey
+CLIENT_ID=yourclientId
+FLOW_ID=yourflowid
+server.port=3000
 ```
 
 ### Run Localy
-Using pip install all the dependencies
+Using gradle to install all the dependencies
 ```bash
-pip install -r requirements.txt
+gradle build
 ```
 
 Then start the local server with
 ```bash
-python3 server.py
+gradle bootRun
 ```
 
 The server will accept petitions on `http://localhost:3000/`
@@ -80,6 +81,6 @@ curl --location 'https://yourforwardingurl.app/webhook' \
 
 ## Dependencies
 
-* **python3**: Python is a high-level, general-purpose programming language.
+* **Java17**: Java is a high-level, general-purpose programming language.
 * **ngrok**: Unified ingress platform used to expose your local server to the internet.
-* **dotenv**: Used to access environment variables.
+* **gradle**: Used to access external dependencies, and to build and run the project.
