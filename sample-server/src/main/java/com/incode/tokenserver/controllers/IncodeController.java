@@ -121,14 +121,13 @@ public class IncodeController {
                                 "success", true
                         );
                         return response;
-                    })
+                    }).onErrorResume(this::buildResponseError)
             );
     }
 
     @GetMapping("/fetch-score")
     public Mono<Map<String, Object>> getFetchScoreFromASession(@RequestParam String interviewId,
                                                                @RequestHeader("X-Token") String token) {
-
         return getScoreOfSession(interviewId, token)
                 .map(fetchScoreResponse -> {
                     Map<String, Object> response = Map.of(
@@ -136,7 +135,7 @@ public class IncodeController {
                             "success", true
                     );
                     return response;
-                });
+                }).onErrorResume(this::buildResponseError);
     }
 
     @GetMapping("onboarding-status")
