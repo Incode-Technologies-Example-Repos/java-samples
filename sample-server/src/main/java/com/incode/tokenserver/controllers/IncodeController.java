@@ -84,6 +84,19 @@ public class IncodeController {
                 .bodyToMono(FetchScoreResponse.class);
     }
 
+    public Mono<OnboardingStatusResponse> getOnboardingStatusOfSession(String interviewId) {
+        String url = apiUrl + "/omni/get/onboarding/status?id=" + interviewId;
+        log.info("Calling {}", url);
+
+        return webClient.get()
+                .uri(url)
+                .header("X-Incode-Hardware-Id", adminToken)
+                .header("x-api-key", apiKey)
+                .header("api-version", "1.0")
+                .retrieve()
+                .bodyToMono(OnboardingStatusResponse.class);
+    }
+
     @GetMapping("/start")
     public Mono<Map<String, String>> createSession() {
         return createIncodeSession().map( omniStartResponse -> {
@@ -126,6 +139,18 @@ public class IncodeController {
                 });
     }
 
+    @GetMapping("onboarding-status")
+    public Mono<Map<String, Object>> getOnboardingStatusFromASession(@RequestParam String interviewId) {
+        return getOnboardingStatusOfSession(interviewId)
+                .map(onboardingStatusResponse -> {
+                    Map<String, Object> response = Map.of(
+                            "onboardingStatus", onboardingStatusResponse.onboardingStatus(),
+                            "success", true
+                    );
+                    return response;
+                }).onErrorResume(this::buildResponseError);
+    }
+
     @PostMapping("/webhook")
     public Mono<ResponseEntity<Map<String, Object>>> webhookAction(@RequestBody Mono<WebhookPayload> dataMono) {
         return dataMono.map(data -> {
@@ -140,5 +165,14 @@ public class IncodeController {
 
             return ResponseEntity.ok(response);
         });
+    }
+
+    //This is not the proper way for handling errors, considering changing it on your purposes.
+    private Mono<Map<String, Object>> buildResponseError(Throwable error) {
+        Map<String, Object> responseError = Map.of(
+                "error", error.getMessage(),
+                "success", false
+        );
+        return Mono.just(responseError);
     }
 }
