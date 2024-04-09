@@ -32,6 +32,9 @@ public class IncodeController {
     @Value("${CLIENT_ID}")
     private String clientId;
 
+    @Value("${ADMIN_TOKEN}")
+    private String adminToken;
+
     private final WebClient webClient;
 
     public IncodeController() {
