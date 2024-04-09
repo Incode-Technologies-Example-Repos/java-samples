@@ -30,8 +30,9 @@ Rename `application.properties.example` file to `application.properties` and add
 ```application.properties
 API_URL=https://demo-api.incodesmile.com
 API_KEY=yourapikey
-CLIENT_ID=yourclientId
+CLIENT_ID=yourclientid
 FLOW_ID=yourflowid
+ADMIN_TOKEN=Needed for the webhooks and the polling calls from the frontend to be able to fetch Scores and auto-approve
 server.port=3000
 ```
 
