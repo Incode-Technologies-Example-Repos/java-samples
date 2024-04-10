@@ -1,5 +1,6 @@
-incode.apikey=yourapikey
-incode.apiurl=yourapiurl
-incode.configurationId=yourconfigurationid
-incode.clientId=yourclientId
-
+API_URL=yourapiurl
+API_KEY=yourapikey
+CLIENT_ID=yourclientId
+FLOW_ID=yourflowid
+ADMIN_TOKEN=Needed for the webhooks to be able to fetch Scores and auto-approve
+server.port=3000

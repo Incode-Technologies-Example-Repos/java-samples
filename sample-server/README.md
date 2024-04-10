@@ -8,6 +8,8 @@
 
 - GET `/onboarding-url`: Calls incodes `/omni/start` and then with the token calls `/0/omni/onboarding-url` to retrieve the unique onboarding-url for the newly created session.
 
+- GET `/fetch-score` : Calls incodes `/omni/get/score` to retrieve the overall score of a finished onboarding session. Requires a valid interviewId as request param and the session token as request header.
+
 It can receive the optional query parameter `redirectUrl` to set where to redirect the user at the end of the flow.
 
 - POST `/webhook`: Example webhook that reads the json data and return it back a response, from here you could fetch scores or OCR data when the status is ONBOARDING_FINISHED
@@ -18,32 +20,39 @@ We highly recommend to follow the 0 rule for your implementations, where all sen
 Within this sample you will find the only call to a `/omni/` endpoint we recommend for you to have, it requires the usage of the `apikey`, all further calls must be done using only the generated `token` and be addresed to the `/0/omni` endpoints. 
 
 ## Prerequisites
-This sample requires [Python 3](https://www.python.org/downloads/) or superior with pip installed
+This sample requires [JAVA 17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html) with at least [gradle 7.3+](https://gradle.org/install/) installed.
 
+Gradle 7.3 is the first version that fully supports Java 17. Newer versions are also compatible with Java 17.
 ## Local Development
 
 ### Environment
-Rename `sample.env` file to `.env` and add your client details:
+Rename `application.properties.example` file to `application.properties` and add your api url, api key, clientId, and flowId details:
 
-```env
+```application.properties
 API_URL=https://demo-api.incodesmile.com
-API_KEY=you-api-key
-CLIENT_ID=your-client-id
-FLOW_ID=Flow Id from your Incode dashboard.
+API_KEY=yourapikey
+CLIENT_ID=yourclientid
+FLOW_ID=yourflowid
+ADMIN_TOKEN=Needed for the webhooks and the polling calls from the frontend to be able to fetch Scores and auto-approve
+server.port=3000
 ```
 
 ### Run Localy
-Using pip install all the dependencies
+Using gradle to install all the dependencies.
 ```bash
-pip install -r requirements.txt
+gradle build
 ```
 
-Then start the local server with
+Then start the local server with.
 ```bash
-python3 server.py
+gradle bootRun
 ```
 
-The server will accept petitions on `http://localhost:3000/`
+Or run it directly through tour preferred IDE.
+
+The server will accept petitions on `http://localhost:3000/`.
+
+You can change the server port on the `application.properties` file but remember which port your frontend is accessing.
 
 ### Expose the server to the internet for frontend testing with ngrok
 For your frontend to properly work in tandem with this server on your mobile phone for testing, you will need a public url with proper SSL configured, by far the easiest way to acchieve this with an ngrok account properly configured on your computer. You can visit `https://ngrok.com` to make a free account and do a quick setup.
@@ -60,6 +69,7 @@ Now you should be able to visit the following routes to receive the associated p
 1. `https://yourforwardingurl.app/start`
 2. `https://yourforwardingurl.app/onboarding-url`
 3. `https://yourforwardingurl.app/onboarding-url?redirectionUrl=https%3A%2F%2Fexample.com%2F`
+4. `https://yourforwardingurl.app/fetch-score?interviewId=660ee696a9b89db96502d8db`
 
 ## Webhook
 We provide an example on how to read the data we send in the webhook calls, from here you could
@@ -80,6 +90,6 @@ curl --location 'https://yourforwardingurl.app/webhook' \
 
 ## Dependencies
 
-* **python3**: Python is a high-level, general-purpose programming language.
+* **Java17**: Java is a high-level, general-purpose programming language.
+* **gradle7.3+**: Used to access external dependencies, and to build and run the project.
 * **ngrok**: Unified ingress platform used to expose your local server to the internet.
-* **dotenv**: Used to access environment variables.
