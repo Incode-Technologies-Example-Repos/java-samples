@@ -20,8 +20,9 @@ We highly recommend to follow the 0 rule for your implementations, where all sen
 Within this sample you will find the only call to a `/omni/` endpoint we recommend for you to have, it requires the usage of the `apikey`, all further calls must be done using only the generated `token` and be addresed to the `/0/omni` endpoints. 
 
 ## Prerequisites
-This sample requires [JAVA 17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html) with gradle installed
+This sample requires [JAVA 17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html) with at least [gradle 7.3+](https://gradle.org/install/) installed.
 
+Gradle 7.3 is the first version that fully supports Java 17. Newer versions are also compatible with Java 17.
 ## Local Development
 
 ### Environment
@@ -37,21 +38,21 @@ server.port=3000
 ```
 
 ### Run Localy
-Using gradle to install all the dependencies
+Using gradle to install all the dependencies.
 ```bash
 gradle build
 ```
 
-Then start the local server with
+Then start the local server with.
 ```bash
 gradle bootRun
 ```
 
-Or run it directly through tour preferred IDE
+Or run it directly through tour preferred IDE.
 
 The server will accept petitions on `http://localhost:3000/`.
 
-You can change the server port on the `application.properties` file but remember which port your frontend is accessing
+You can change the server port on the `application.properties` file but remember which port your frontend is accessing.
 
 ### Expose the server to the internet for frontend testing with ngrok
 For your frontend to properly work in tandem with this server on your mobile phone for testing, you will need a public url with proper SSL configured, by far the easiest way to acchieve this with an ngrok account properly configured on your computer. You can visit `https://ngrok.com` to make a free account and do a quick setup.
@@ -90,5 +91,5 @@ curl --location 'https://yourforwardingurl.app/webhook' \
 ## Dependencies
 
 * **Java17**: Java is a high-level, general-purpose programming language.
+* **gradle7.3+**: Used to access external dependencies, and to build and run the project.
 * **ngrok**: Unified ingress platform used to expose your local server to the internet.
-* **gradle**: Used to access external dependencies, and to build and run the project.
