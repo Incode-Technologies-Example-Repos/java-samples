@@ -72,7 +72,7 @@ public class IncodeController {
     }
 
     public Mono<FetchScoreResponse> getScoreOfSession(String interviewId, String token) {
-        String url = apiUrl + "/omni/get/score?interviewId=" + interviewId;
+        String url = apiUrl + "/omni/get/score?id=" + interviewId;
         log.info("Calling {}", url);
 
         return webClient.get()
